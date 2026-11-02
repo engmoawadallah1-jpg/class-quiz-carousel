@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import younes from "@/assets/younes.png";
 import hakeem from "@/assets/hakeem.png";
-import { useProgress } from "@/lib/progress";
+import { StudentPicker } from "@/components/StudentPicker";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -17,27 +17,19 @@ export const Route = createFileRoute("/")({
 });
 
 const modes = [
-  { to: "/adventure", title: "رحلة المغامرات", desc: "خمسة عوالم تنتظرك!", icon: "🗺️", tone: "bg-emerald" },
+  { to: "/adventure", title: "رحلة المغامرات", desc: "ستة عوالم واختبار شامل!", icon: "🗺️", tone: "bg-emerald" },
   { to: "/millionaire", title: "من سيربح المليون؟", desc: "١٠ أسئلة ووسائل مساعدة", icon: "💰", tone: "bg-gold" },
   { to: "/knowledge", title: "بنك المعرفة", desc: "راجع كل الأسئلة والآداب", icon: "📚", tone: "bg-sky" },
 ] as const;
 
 function Index() {
-  const [p, update] = useProgress();
   return (
     <div className="space-y-10">
       <section className="grid md:grid-cols-2 items-center gap-6">
         <div className="space-y-5">
           <h1 className="text-4xl md:text-6xl font-black leading-tight">رحلة الإيمان <span className="block text-primary text-3xl md:text-4xl mt-2">رحلة المعرفة والمغامرة</span></h1>
           <p className="text-lg">مرحباً يا بطل! أنا <b>يونس</b> وهذا صديقي القط <b>فلفل</b>. هيا نتعلم معاً العقيدة الصحيحة والآداب الجميلة!</p>
-          <label className="flex items-center gap-2 bg-card rounded-full p-2 pe-4 pop w-fit">
-            <span className="text-2xl">{p.avatar}</span>
-            <input aria-label="اسمك" className="bg-transparent outline-none font-bold w-36" value={p.name}
-              onChange={(e) => update((x) => ({ ...x, name: e.target.value }))} />
-            <select aria-label="الصورة" className="bg-transparent" value={p.avatar} onChange={(e) => update((x) => ({ ...x, avatar: e.target.value }))}>
-              {["🧒", "👧", "🧕", "👦", "🦁", "🐱"].map((a) => <option key={a}>{a}</option>)}
-            </select>
-          </label>
+          <StudentPicker />
           <Link to="/adventure" className="btn-chunky bg-emerald text-ink-on-color text-xl inline-block">ابدأ المغامرة 🚀</Link>
         </div>
         <motion.img src={younes} alt="يونس وفلفل" width={1024} height={1024} className="w-full max-w-md mx-auto drop-shadow-xl"

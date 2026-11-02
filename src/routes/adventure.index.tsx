@@ -7,9 +7,9 @@ export const Route = createFileRoute("/adventure/")({
   head: () => ({
     meta: [
       { title: "خريطة المغامرات – رحلة الإيمان" },
-      { name: "description", content: "خمسة عوالم تعليمية: قلعة العقيدة، حديقة الإيمان، بيت الأخلاق، مدينة الآداب، وتحدي الأبطال." },
+      { name: "description", content: "ستة عوالم تعليمية: قلعة العقيدة، حديقة الإيمان، واحة السنة، بيت الأخلاق، مدينة الآداب، وتحدي الأبطال." },
       { property: "og:title", content: "خريطة المغامرات – رحلة الإيمان" },
-      { property: "og:description", content: "اكتشف العوالم الخمسة وافتحها واحداً تلو الآخر." },
+      { property: "og:description", content: "اكتشف العوالم الستة وافتحها واحداً تلو الآخر." },
     ],
   }),
   component: Map,

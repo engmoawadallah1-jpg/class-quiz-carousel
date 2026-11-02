@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { useProgress, levelFor } from "@/lib/progress";
+import { useProgress, levelFor, useStudents } from "@/lib/progress";
 
 const nav = [
   { to: "/", label: "الرئيسية", icon: "🏠" },
@@ -11,6 +11,7 @@ const nav = [
 
 export function Header() {
   const [p] = useProgress();
+  const { students, activeId, select } = useStudents();
   const lv = levelFor(p.stars);
   return (
     <header className="sticky top-0 z-30 bg-card/90 backdrop-blur border-b-4 border-gold">
@@ -18,7 +19,11 @@ export function Header() {
         <div className="flex items-center gap-2">
           <span className="text-3xl rounded-full bg-accent w-12 h-12 grid place-items-center">{p.avatar}</span>
           <div>
-            <div className="font-extrabold font-display">{p.name}</div>
+            {students.length > 1 ? (
+              <select aria-label="تغيير الطالب" value={activeId} onChange={(e) => select(e.target.value)} className="font-extrabold font-display bg-transparent">
+                {students.map((s) => <option key={s.id} value={s.id}>{s.avatar} {s.name}</option>)}
+              </select>
+            ) : <div className="font-extrabold font-display">{p.name}</div>}
             <div className="flex items-center gap-2 text-xs">
               <span className="rounded-full bg-primary text-primary-foreground px-2">المستوى {lv.level}</span>
               <div className="w-16 h-2 rounded-full bg-muted overflow-hidden"><div className="h-full bg-emerald" style={{ width: `${(lv.inLevel / lv.need) * 100}%` }} /></div>
