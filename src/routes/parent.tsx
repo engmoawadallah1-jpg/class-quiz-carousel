@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { worlds, questionsForWorld } from "@/data/questionsData";
-import { useProgress, defaultProgress, levelFor } from "@/lib/progress";
+import { useProgress, defaultProgress, levelFor, useStudents } from "@/lib/progress";
+import { StudentPicker } from "@/components/StudentPicker";
 
 export const Route = createFileRoute("/parent")({
   head: () => ({
@@ -16,6 +17,7 @@ export const Route = createFileRoute("/parent")({
 
 function Parent() {
   const [p, update] = useProgress();
+  const { students } = useStudents();
   const stats = [
     { l: "النجوم", v: `⭐ ${p.stars}` },
     { l: "المستوى", v: levelFor(p.stars).level },
@@ -25,6 +27,14 @@ function Parent() {
   return (
     <div className="space-y-6">
       <h1 className="text-4xl font-black">👨‍👩‍👦 لوحة ولي الأمر</h1>
+      <StudentPicker />
+      <section className="bg-card rounded-3xl p-5 pop">
+        <h2 className="text-2xl font-black mb-3">كل الطلاب</h2>
+        <ul className="divide-y">{students.map((s) => (
+          <li key={s.id} className="py-2 grid grid-cols-4 gap-2"><span className="font-bold">{s.avatar} {s.name}</span><span>⭐ {s.stars}</span><span>العوالم: {s.unlocked.length}/{worlds.length}</span><span>اختبارات: {s.results.length}</span></li>
+        ))}</ul>
+      </section>
+      <h2 className="text-2xl font-black">تفاصيل: {p.avatar} {p.name}</h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {stats.map((s) => <div key={s.l} className="bg-card rounded-3xl p-5 pop text-center"><div className="text-muted-foreground">{s.l}</div><div className="text-3xl font-black">{s.v}</div></div>)}
       </div>
