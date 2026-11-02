@@ -31,7 +31,7 @@ function Parent() {
       <section className="bg-card rounded-3xl p-5 pop">
         <h2 className="text-2xl font-black mb-3">التقدم في العوالم</h2>
         {worlds.map((w) => {
-          const total = w.slug === "heroes" ? 10 : questionsForWorld(w.slug).length;
+          const total = questionsForWorld(w.slug).length;
           const best = p.completed[w.slug] ?? 0;
           return (
             <div key={w.slug} className="flex items-center gap-3 py-2">
@@ -52,7 +52,7 @@ function Parent() {
       </section>
       <div className="flex gap-3">
         <button onClick={() => update((x) => ({ ...x, unlocked: worlds.map((w) => w.slug) }))} className="btn-chunky bg-sky text-ink-on-color">فتح كل العوالم</button>
-        <button onClick={() => confirm("هل تريد مسح كل التقدم؟") && update(() => defaultProgress)} className="btn-chunky bg-destructive text-destructive-foreground">إعادة ضبط التقدم</button>
+        <button onClick={() => confirm("هل تريد مسح كل التقدم؟") && update((x) => ({ ...defaultProgress, unlocked: [worlds[0]!.slug], name: x.name, avatar: x.avatar }))} className="btn-chunky bg-destructive text-destructive-foreground">إعادة ضبط التقدم</button>
       </div>
     </div>
   );

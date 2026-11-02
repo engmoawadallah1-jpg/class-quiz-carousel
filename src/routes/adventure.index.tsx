@@ -24,7 +24,7 @@ function Map() {
       <div className="relative flex flex-col gap-6 max-w-2xl mx-auto">
         {worlds.map((w, i) => {
           const open = p.unlocked.includes(w.slug);
-          const total = w.slug === "heroes" ? 10 : questionsForWorld(w.slug).length;
+          const total = questionsForWorld(w.slug).length;
           const best = p.completed[w.slug];
           const card = (
             <motion.div whileHover={open ? { scale: 1.03, rotate: i % 2 ? 1 : -1 } : {}}
