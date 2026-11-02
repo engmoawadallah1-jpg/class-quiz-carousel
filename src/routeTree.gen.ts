@@ -10,33 +10,102 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as KnowledgeRouteImport } from './routes/knowledge'
+import { Route as MillionaireRouteImport } from './routes/millionaire'
+import { Route as ParentRouteImport } from './routes/parent'
+import { Route as AdventureIndexRouteImport } from './routes/adventure.index'
+import { Route as AdventureSlugRouteImport } from './routes/adventure.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KnowledgeRoute = KnowledgeRouteImport.update({
+  id: '/knowledge',
+  path: '/knowledge',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MillionaireRoute = MillionaireRouteImport.update({
+  id: '/millionaire',
+  path: '/millionaire',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentRoute = ParentRouteImport.update({
+  id: '/parent',
+  path: '/parent',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdventureIndexRoute = AdventureIndexRouteImport.update({
+  id: '/adventure/',
+  path: '/adventure/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdventureSlugRoute = AdventureSlugRouteImport.update({
+  id: '/adventure/$slug',
+  path: '/adventure/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/knowledge': typeof KnowledgeRoute
+  '/millionaire': typeof MillionaireRoute
+  '/parent': typeof ParentRoute
+  '/adventure/$slug': typeof AdventureSlugRoute
+  '/adventure/': typeof AdventureIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/knowledge': typeof KnowledgeRoute
+  '/millionaire': typeof MillionaireRoute
+  '/parent': typeof ParentRoute
+  '/adventure/$slug': typeof AdventureSlugRoute
+  '/adventure': typeof AdventureIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/knowledge': typeof KnowledgeRoute
+  '/millionaire': typeof MillionaireRoute
+  '/parent': typeof ParentRoute
+  '/adventure/$slug': typeof AdventureSlugRoute
+  '/adventure/': typeof AdventureIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/knowledge'
+    | '/millionaire'
+    | '/parent'
+    | '/adventure/$slug'
+    | '/adventure/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/knowledge'
+    | '/millionaire'
+    | '/parent'
+    | '/adventure/$slug'
+    | '/adventure'
+  id:
+    | '__root__'
+    | '/'
+    | '/knowledge'
+    | '/millionaire'
+    | '/parent'
+    | '/adventure/$slug'
+    | '/adventure/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  KnowledgeRoute: typeof KnowledgeRoute
+  MillionaireRoute: typeof MillionaireRoute
+  ParentRoute: typeof ParentRoute
+  AdventureSlugRoute: typeof AdventureSlugRoute
+  AdventureIndexRoute: typeof AdventureIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +117,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/knowledge': {
+      id: '/knowledge'
+      path: '/knowledge'
+      fullPath: '/knowledge'
+      preLoaderRoute: typeof KnowledgeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/millionaire': {
+      id: '/millionaire'
+      path: '/millionaire'
+      fullPath: '/millionaire'
+      preLoaderRoute: typeof MillionaireRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent': {
+      id: '/parent'
+      path: '/parent'
+      fullPath: '/parent'
+      preLoaderRoute: typeof ParentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/adventure/': {
+      id: '/adventure/'
+      path: '/adventure'
+      fullPath: '/adventure/'
+      preLoaderRoute: typeof AdventureIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/adventure/$slug': {
+      id: '/adventure/$slug'
+      path: '/adventure/$slug'
+      fullPath: '/adventure/$slug'
+      preLoaderRoute: typeof AdventureSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  KnowledgeRoute: KnowledgeRoute,
+  MillionaireRoute: MillionaireRoute,
+  ParentRoute: ParentRoute,
+  AdventureSlugRoute: AdventureSlugRoute,
+  AdventureIndexRoute: AdventureIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
